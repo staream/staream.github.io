@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 	"쿠다-1주차 record"
+title: 	"1st week record"
 date: 	2024-07-24 00:50:17 +0900
 categories: Data_Analysis update
 ---
