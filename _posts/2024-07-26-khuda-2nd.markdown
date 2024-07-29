@@ -1,0 +1,359 @@
+---
+layout: post
+title: 	"2nd week record-ML 기초 개념과 환경 세팅"
+date: 	2024-07-26 15:52:17 +0900
+categories: KhuDa
+---
+
+# 01-1 인공지능과 머신러닝, 딥러닝
+## 인공지능이란?
+인공지능: 사람처럼 학습과 추론을 할 수 있는 지능을 가진 컴퓨터 시스템을 만드는 기술
+#### 알면 이로운 지식
+1) 인공지능 태동기
+1956년 다트머스 AI 컨퍼런스에서의 기대치가 최고조임.
+2) 인공지능 황금기
+- 1957년 퍼셉트론
+- 1959년 뉴런 기능 연구
+- 한계 : 컴퓨터의 성능 이슈
+3) 위기
+- 1st AI 겨울 
+- 2nd AI 겨울
+
+#### 영화 속의 인공지능과 현재의 인공지능의 차이
+영화에 나오는 서로 대화가 가능한 인공지능을 
+- 강인공지능, 인공일반지능
+현실에 있는 인공지능은
+- 약인공지능(보조위주)
+
+## 머신러닝이란?
+- 정의 : 규칙을 프로그래밍하지 않고, 데이터에서 규칙을 학습하는(뽑아내는) 알고리즘을 연구하는 분야.
+- 역할 : 인공지능의 지능을 구현하기 위한 소프트웨어를 담당하는 핵심분야
+- 통계학과 컴퓨터 과학 분야가 상호작용하며, 발전하고 있다.
+- 알고리즘을 사용할 수 있는 곳: R(오픈소스 통계 소프트웨어)
+- 최근 경향 : 통계, 이론보다 경험을 바탕으로 발전하는 경우도 있다. 이는 컴퓨터 과학 분야가 주도하고, 대표적으로 **사이킷런** 이라는 라이브러리가 있음.
+
+### 사이킷런
+- 장점 : 라이브러리에 포함된 알고리즘들이 안정적이며 성능이 검증되어 있다. 
+- 이를 통해 다양한 사람들이 손쉽게 다룰 수 있었다.
+- 메타 : 이론과 기술보다는 **코드 구현**과 **통용**되어야만 가치를 입증할 수 있다.
+
+## 딥러닝이란?
+- 정의 : 머신러닝 알고리즘에서 **인공신경망**을 기반으로 한 방법들을 통칭하여 **딥러닝**이라고 한다.
+발전 연대기 :
+
+| 연도 | 이름 | 분야 | 사용 모델 |
+| --- | --- | --- | --- |
+| 1998 | 얀 르쿤 | 손글씨 숫자 |신경망 모델-합성곱 신경망 | 
+| 2012 | 제프리 힌턴 | 이미지 분류 |합성곱 신경망|
+
+- 발전의 기반: 
+1) 풍부한 데이터
+2) 컴퓨터 성능
+3) 알고리즘 개발
+
+### 라이브러리
+1) TensorFlow(opensource of google)
+2) PyTorch(opensource of Meta)
+
+# 01-2 코랩과 주피터 노트북
+- 장점 : 누구나 동일한 결과를 표현할 수 있다.
+## 구글 코랩
+기능: **웹 브라우저**에서 무료로 파이썬 프로그램을 테스트하고 저장할 수 있는 서비스
+용어 :  colab - 온라인 에디터
+        노트북 or colab notebook - colab 파일
+- 클라우드 기반의 주피터 노트북 개발 환경
+    - 누구나 개발이 가능하다.
+    - 사양을 고려하지 않아도 된다.
+- 기능
+    - cell : 코드나 텍스트의 덩어리
+### Text Cell
+- cell: 코랩에서 실행하는 **최소의 단위***(like jupyter)*
+- 특징 : HTML과 markdown을 혼용해서 사용할 수 있다.
+
+|기호|기능|
+|---|---|
+|T| 제목으로|
+|B| 굵은 글자|
+|I| 이탤릭체|
+|<>| text to code|
+|(-)| 선택한 글자에 링크|
+| 앞의 내용| "현재 커서에" 추가|
+|이미지|  이미지 추가|
+|->-| 들여쓴 블록 추가|
+|1-|번호 매기기|
+|.-|글머리 기호 목록 추가|
+|.-.-.| 가로줄 추가|
+|....| 미리보기 창|
+
+### 노트북
+코랩은 대화식 프로그래밍 환경인 Jupyter에서 출발했다.
+- 코랩 노트북
+    - 실행공간 : 구글 클라우드의 가상 서버
+        - RAM-12GB, disk-100GB
+    - 제한 사항 : 
+        - 가상 서버의 개수는 최대 5개
+            - how to manage?
+                - 실행 중인 웹브라우저 창을 닫기
+                - [런타임]-> [세션 관리] 메뉴를 선택하여 종류.
+        - 1개의 노트북은 12시간으로 제한
+    - 사용법: 
+        - 실행 : ctrl+enter
+        - 노트북 저장처: 구글 드라이브의 [내 드라이브]-[Colab Notebooks] 폴더 아래에 저장됩니다.
+        - 이름 바꾸기 : 이름을 바꾼 뒤에 드라이브에 조금의 텀이 존재
+        - 파일 열기 : [연결 앱]-[Google Colaboratory]
+
+# 01-3 마켓과 머신러닝
+## 생선 분류 문제
+- ML은 기준+ 생선인지 도미인지를 판별할 수 있다.
+- 특성 : 데이터의 특징
+    - Tip : 숫자보다는 그래프로 보는 것을 추천
+        - 산점도: x축 y축으로 두어 표현
+        - 방법
+            1. 파이썬의 과학계산용 그래프 용도의 matplotlib.
+                패키지 내의 산점도를 그리는 **함수 scatter()** 사용하기    
+        - 적용
+#### 손코딩
+```python
+import matplotlib.pyplot as plt 
+plt.scatter(bream_length, bream_weight)
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+![alt text](image.png)
+선형적인 그래프가 나온다.
+
+#### 손코딩 빙어 데이터 넣기
+```python
+plt.scatter(bream_length, bream_weight)
+plt.scatter(smelt_length, smelt_weight)
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+![alt text](image-1.png)
+색이 구별되는 형태를 보여준다.
+빙어는 길이와 무게가 비례하지만 기울기가 다르다. 
+    이는 도미가 길이에 따라 무게가 더 큰 영향을 받는다.
+
+## 첫 번째 머신러닝 프로그램
+### k-최근접 이웃(k-nearest neighbors, knn) 알고리즘
+#### 데이터 준비
+1. 위의 빙어와 도미의 길이, 무게의 리스트를 더하자
+```python
+length = br_lenght + sm_length
+weight = br_weight + sm_length
+```
+2. scikit-learn 패키지를 사용하기 위해 **2차원 리스트** 만들기
+    - 필요 함수 : zip() 함수
+    - list comprehension 구문을 사용하기
+    ```python
+    fish_data = [[l,w] for l,w in zip(length,weight)]
+    ```
+3. 정답 리스트 만들기
+    ```python
+    fish_target = [1]*35 + [0]*14
+    ```
+#### k-nn 알고리즘 사용하기
+```python
+from sklearn.neighbors import KNeighborsClassifier
+# 패키지, 모듈 전체를 import하지 않고, 특정 클래스만 import하려고 사용.
+# 장점 : sklearn.neighbors.KNeighborsClassifier() 이 아닌 KNeighborsClassifier()로 사용한다.
+kn= KNeighborsClassifier() 
+# model을 훈련을 할 때는 fit()함수를 이용한다.
+kn.fit(fish_data, fish_target)
+#kn을 훈련했다면 이에 대한 평가로 score을 사용하기
+kn.score(fish_data,fish_target)# 결과로 정확도 0~1.0 사이로 나온다. 
+```
+실제 적용해보기
+```python
+# 정답을 예측한다.
+kn.predict([[30,600]])
+```
+- predict() 메서드는 새로운 데이터의 정답을 예측합니다.
+- fit()과 마찬가지로 **2중 리스트** 전달
+
+#### k-nn의 단점
+- 메모리 부담이 크다
+- 계산 시간이 오래 걸림.
+```python
+kn._fit_X   # 특성 데이터 이중 리스트
+kn._y       # 정답 데이터 리스트
+```
+#### k-nn 모델의 매개변수
+KNeighborsClassifier(n_neighbors=??)
+- 참고 데이터를 ??개로 한 모델이다.
+- ??개에서 많이 차지하는 정답을 데이터의 정답으로 예측
+
+# 02-1 훈련 세트와 테스트 세트
+## 지도 학습과 비지도 학습
+### 지도 학습
+- 데이터 : input
+- 데이터 내의 특징 : 특성
+- 정답 : target
+- 훈련 데이터 : 데이터 + 정답
+- test set : 평가에 사용되는 데이터들
+- train set : 훈련에 사용되는 데이터들
+- sample : 생선 하나의 데이터를 이르는 말
+- index : 전체 데이터에서 리스트처럼 배열의 요소를 선택할 때 이용하는 **배열의 위치**
+    ```python
+    # 5번째 자리의 데이터를 가져오는 것
+    print(fish_data[4])
+    ```
+- slicing : 여러 개의 원소를 뽑을 때
+           *이때 마지막 인덱스의 원소는 포함 X*
+    ```python
+    # 0번부터 4번 자리까지의 5개 데이터(list)를 하나의 리스트에 넣어 출력한다.
+    print(fish_data[0:5])
+    print(fish_data[:5])
+    #44번째부터 마지막 인덱스까지 사용한다.
+    print(fish_data[44:])
+    ```
+- 샘플링 편향 : 훈련과 테스트 세트가 각각 골고루 섞이지 않는 경우
+- 넘파이 : 파이썬의 array library
+        사용하는 이유 : 리스트로는 2차원 표현 가능/ 고차원 리스트를 표현하기 어려움
+    **Tip.** 표현하는 방법
+    ![alt text](image-3.png)
+    ```python
+    import numpy as np
+    input_arr= np.array(fish_data)
+    target_arr=np.array(fish_target)
+    ```
+    ```python
+    # (샘플 수, 특성 수)를 출력합니다.
+    input_arr.shape
+    ```
+    발생하는 문제
+    - input과 target이 같게 연결해야 한다.
+        해결법
+        - arange(?) 함수 이용 : 0부터 ?-1까지 증가하는 인덱스를 만들 수 있다.
+        ```python
+        np.random.seed(42)
+        index = np.arange(49)
+        np.random.shuffle(index)
+        ```
+- 배열 인덱싱 : 복수의 인덱스로 한 번에 여러 개의 원소를 선택할 수 있다. 
+    ```python
+    print(input_arr[[1,3]])
+    # >> [[1,2],[1,2]]
+    ```
+    ```python
+    # 적용
+    train_input = input_arr[index[:35]]
+    train_target = target_arr[index[:35]]
+    ```
+predict 함수의 출력값은 numpy 배열형이다.
+    array(~~~~)
+넘파이는 이전보다 데이터를 **골고루 섞어 나누기** 위해 사용했다.
+# 02-2 데이터 전처리
+
+## numpy로 데이터 준비하기
+**numpy로 달라진 점**
+| -- | 달라진 점 |
+| --- | ---|
+|이전| list를 순회하여 특성값을 넣었다. |
+|이후| numpy를 이용한 간편한 방법 |
+
+**함수** 
+- 데이터 합치기
+    1. column_stack(([1st 특성], [2nd 특성]))
+        1) 전달받은 리스트를 일렬로 세운 후, 차례대로 연결한다.
+        2) 연결할 리스트는 파이썬 tuple로 전달한다.
+        3) 결과 
+            - array([[1,4],
+                    [2,5],
+                    [3,6]])
+            - 사이즈 :(3,2)/ 3개의 행과 2개의 열이 있다.
+    2. concatenate(([],[],~,[]))
+        1) 전달받은 리스트를 일렬로 세운 후, 차례대로 연결한다.
+        2) 연결할 리스트는 파이썬 tuple로 전달한다.
+        3) 결과
+            - [1,2,3,4,5,6]
+
+    ![ ㅎㅎㅎㅎㅎㅀㅎ ](image-5.png)
+
+- 원소 채우기
+    1. np.ones(n) : 1이 n개 들어있는 배열 생성
+        1) 결과
+            [1. 1. 1.]
+    2. np.zeros(n) : 0이 n개 들어있는 배열 생성
+        1) 결과
+            [0. 0. 0.]
+**numpy의 장점**
+list에 비해 효율적으로 움직인다.
+    저수준 언어로 개발되었기에
+대용량 데이터에 list에 비해 효율적으로 움직인다.
+
+## Divide train, test using scikit-learn
+**사용 함수**
+- train_test_split()
+    기능 : 섞는 작업, 나누는 작업
+    ```python
+    from sklearn.model_selection import train_test_split
+    # 이전 np에선 아래 함수를 이용하여 구함
+    np.random.seed() 
+    # scikit-learn
+    train_input, test_input, train_target, test_target = train_test_split(fish_data, fish_target, random_state=42)
+    # random_state : seed 번호를 지정하는 매개변수
+    # fish_data, fish_target : 입력 데이터와 그에 대한 target 값
+    train_input, test_input, train_target, test_target = train_test_split(fish_data, fish_target, stratify=fish_target, random_state=42)
+    #stratify 매개변수에 타깃 데이터를 전달하면 클래스 비율에 맞게 데이터를 나눈다.
+    ```
+```python
+import matplotlib.pyplot as plt
+plt.scatter(train_input[:,0],train_input[:,1])
+plt.scatter(25,150,marker='^') # marker는 모양을, 
+# "^"는 삼각형 모양, 'D'는 마름모이다.
+plt.xlabel('')
+plt.ylabel('')
+plt.show()
+```
+
+- kneighbors()
+    KNeighborsClassifier 클래스의 메서드이다.
+    기능 : 가장 가까운 이웃을 찾아준다.
+    반환 : 이웃까지의 거리, 이웃 샘플의 인덱스 
+            각각 이중 배열로 반환
+    사용법 : 좌표는 이중 배열의 형태로 입력한다.
+    매개변수 :
+        n_neighbors(n) : 가까운 n개에 대한 정보를 반환 
+    ```python
+    distances, indexes = kn.kneighbors([[25,150]])
+    # 기본값 5이므로, 5개의 이웃을 반환한다.
+    ```
+
+## Scaling
+- scale : 특성의 값이 놓인 범위
+- 데이터 전처리 : 특성값을 일정한 기준으로 맞추는 활동
+- 전처리 방법
+    1) 표준점수(standard score) : 특성값이 0에서 표준편차의 몇 배만큼 떨어져 있는가?
+        계산 방법 : 평균을 빼고, 표준편차를 나누어 주면 된다.
+        ```python
+        mean = np.mean(train_input,axis=0)
+        std = np.std(train_input,axis=0)
+        ```
+        - np.mean() : 평균 계산
+        - np.std() : 표준편차 계산
+        - axis=0 : 행을 따라 각 열의 통계값을 계산
+        ![alt text](image-6.png)
+
+        ```python
+        #표준점수 구하기
+        train_scaled = (train_input - mean) / std
+        ```
+        위의 코드에 나온 방법을 **브로드캐스팅(broadcasting)**이라고 한다.
+
+
+```python
+import matplotlib.pyplot as plt
+plt.scatter(train_input[:,0],train_input[:,1])
+plt.scatter(25,150,marker='^') # marker는 모양을, 
+# "^"는 삼각형 모양, 'D'는 마름모이다.
+####
+plt.scatter(train_input[indexes,0],train_input[indexes,1],marker='D')
+plt.xlim(0,1000)
+####
+plt.xlabel('')
+plt.ylabel('')
+plt.show()
+```

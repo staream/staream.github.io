@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 	"1st week record"
+title: 	"1st week record-데이터 시각화에 대해"
 date: 	2024-07-24 00:50:17 +0900
-categories: Data_Analysis update
+categories: KhuDa
 ---
 이전의 내용: 데이터 분석, ML 모델링 프로젝트를 위한 비즈니스 문제 정의와 분석 목적 도출부터 데이터 분석 환경 세팅에 대해
 이번 절: 데이터의 형태와 분포, 이상치와 결측치 등을 확안하는 탐색적 데이터 분석과 상관성 분석 그리고 시각화 기법들에 대해 알아보겠습니다.
