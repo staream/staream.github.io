@@ -315,12 +315,12 @@ plt.show()
 ```
 
 - kneighbors()
-    KNeighborsClassifier 클래스의 메서드이다.
-    기능 : 가장 가까운 이웃을 찾아준다.
-    반환 : 이웃까지의 거리, 이웃 샘플의 인덱스 
-            각각 이중 배열로 반환
-    사용법 : 좌표는 이중 배열의 형태로 입력한다.
-    매개변수 :
+    - KNeighborsClassifier 클래스의 메서드이다.
+    - 기능 : 가장 가까운 이웃을 찾아준다.
+    - 반환 : 이웃까지의 거리, 이웃 샘플의 인덱스 
+        - 각각 이중 배열로 반환
+    - 사용법 : 좌표는 이중 배열의 형태로 입력한다.
+    - 매개변수 :
         n_neighbors(n) : 가까운 n개에 대한 정보를 반환 
     ```python
     distances, indexes = kn.kneighbors([[25,150]])
