@@ -1,14 +1,14 @@
 ---
 layout: post
-title: 	"2nd week record-ML 기초 개념과 환경 세팅"
+title: 	"3rd week record-ML"
 date: 	2024-07-26 15:52:17 +0900
 categories: KhuDa
 ---
 
 03 회귀 알고리즘과 모델 규제
 ===========================
-03-1 k-최근접 이웃 회귀
-==================
+# 03-1 k-최근접 이웃 회귀
+
 **문제 상황**
 목표 : 무게를 알아내야 한다. 
 사용 변수 : 무게를 제외한 길이, 높이, 두께
@@ -127,8 +127,7 @@ knr.fit(train_input,train_target)
 print(knr.score(test_input,test_target))
 ```
 
-03-2 선형 회귀
-===================
+# 03-2 선형 회귀
 ## KNN의 한계
 ### 데이터 정리
 ```python
