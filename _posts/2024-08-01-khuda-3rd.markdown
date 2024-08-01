@@ -26,12 +26,14 @@ categories: KhuDa
 
 ## 사용 방법
 ### 데이터 준비
+
     ```python
     import numpy as np
     perch_length = np.array([1,2,3,4,5,6])
     perch_weight = np.array([1,2,3,4,5,6])
     # 2장에선 리스트에서 np로 변환했지만, 여기선 바로 넘파이 배열 이용하기
     ```
+
 ### 산점도 그리기
     ```python
     import matplotlib.pyplot as plt
@@ -41,13 +43,17 @@ categories: KhuDa
     plt.show()
     # 데이터 간의 특성 파악
     ```
+
 ### 훈련 세트와 테스트 세트 나누기
+
     ```python
     from sklearn.model_selection import train_test_split
     train_input, test_input, train_target, test_target = train_test_split(perch_length, perch_weight, random_state=42)
     ```
+
 ### 배열의 크기를 바꾸는 과정
 - 위에 있는 배열은 1차원이므로 크기를 반환하는 함수를 이용한다면 아래와 같이 반환한다.
+
     ```python
     #[1,2,3,4,5,6]
     print(perch_length.shape())
@@ -55,6 +61,7 @@ categories: KhuDa
     #a=array([[1],[2],[3],[4],[5],[6]])
     # (6,1) 행이 6개, 열이 1개
     ```
+
 + **2장과의 차이**
     - 2장에선 2개의 특성을 사용하므로 자연스럽게 열이 2개인 2차원 배열을 생성했다.
 + **3장**
@@ -62,6 +69,7 @@ categories: KhuDa
     - 방법 
         1) reshape() 메서드를 제공한다.
         2) 코딩
+
             ```python
             test_array=np.array([1,2,3,4])
             print(test_array.shape)
@@ -70,6 +78,7 @@ categories: KhuDa
             print(test_array.shape)
             #(2,2)
             ```
+
 - Tip **reshape()**
     - 에러가 나오는 경우
         reshape(a,b)에서 "a x b"의 값이 배열의 크기와 다른 경우엔 **Value Error**가 나온다.
@@ -79,7 +88,8 @@ categories: KhuDa
 ### 모델 평가하는 방법
 - 결정 계수(R**2)
     - 사용처 : 회귀, not 분류
-    - 공식 : $$R^2 = 1 - \frac{(target-predict)^2}{(target - mean)^2}$$
+    - 공식 : 
+    $$R^2 = 1 - \frac{(target-predict)^2}{(target - mean)^2}$$
     - 의미 
         1) 0 : 타깃의 평균 정도를 예측한다.
         2) 1 : 타깃이 예측에 가깝게 예측한다.
@@ -97,6 +107,7 @@ categories: KhuDa
     - 사용처 : 정량적인 값을 알고 싶을 때
     - 공식 : $$\sum_{n=0}^{k}\frac{|target_n - predict_n|}{k}  $$
     - code로 사용하는 법
+
     ```python
     # metrics에서 mean_absolute_error를 불러주어야 한다.
     from sklearn.metrics import mean_absolute_error
@@ -119,6 +130,7 @@ categories: KhuDa
 ##### how?
 - knn의 모델을 다시 만드는 방법도 있다. 
 - 객체를 만들 필요 없이 모델의 속성값을 바꾸고, 다시 학습시켜도 된다.
+
 ```python
 # 이웃의 개수를 3으로 설정한다.
 knr.n_neighbors =3
@@ -130,6 +142,7 @@ print(knr.score(test_input,test_target))
 # 03-2 선형 회귀
 ## KNN의 한계
 ### 데이터 정리
+
 ```python
 import numpy as np
 perch_length = np.array([])
@@ -153,8 +166,10 @@ knr.fit(train_input, train_target)
 #예측
 print(knr.predict([[50]]))
 ```
+
 ### 문제 파악하기
 #### 산점도 표현하기
+
 ```python
 import matplotlib.pyplot as plt
 # 해당 길이의 이웃 구하기
@@ -168,6 +183,7 @@ plt.scatter(train_input[indexes],train_target[indexes],marker='D')
 plt.scatter(50,1033.0, marker='^')
 plt.show()
 ```
+
 ![alt text](image-7.png)
 
 ```python
@@ -201,6 +217,7 @@ print(np.mean(train_target[indexes]))
         - **coef_, intercept_**
             - coef_ : weight를 구할 때 이용
             - intercept_: bias를 구할 때 이용
+
 ```python
 from sklearn.linear_model import LinearRegression
 lr = LinearRegression()
@@ -210,6 +227,7 @@ lr.fit(train_input, train_target)
 # 50cm 농어에 대해 예측
 lr.predict([[50]])
 ```
+
 - 만들어지는 결과물
     - ax + b 인 식이 구현되었다.
 
@@ -220,6 +238,7 @@ lr.predict([[50]])
     coef_, intercept_
 
 나온 결과물을 산점도로 그리는 코드
+
 ```python
 #산점도
 plt.scatter(train_input,train_target)
@@ -231,12 +250,14 @@ plt.show()
 ```
 
 모델 평가하는 코드
+
 ```python
 print(lr.score(train_input,train_target))
 print(lr.score(test_input, test_target))
 #0.93
 #0.82
 ```
+
 값이 작을 것을 통해 과소적합으로 볼 수 있다.
 **다른 방법이 있을까?**
 
@@ -248,16 +269,20 @@ print(lr.score(test_input, test_target))
                 - column_stack()
                     - parameter
                         - (train_input**2, train_input) 
+
             ```python
             train_poly = np.column_stack((train_input**2, train_input))
             test_poly = np.column_stack((test_input**2, test_input))
             ```
+
 - 적용
+
     ```python
     lr = LinearRegression()
     lr.fit(train_poly, test_poly)
     print(lr.predict([[50**2,50]]))
     ```
+
 - 질문
     - 2차 방정식도 선형회귀인가?
         - 2차항인 변수를 다른 새로운 변수로 치환한다면 이는 **선형**으로 볼 수 있다.
@@ -266,6 +291,7 @@ print(lr.score(test_input, test_target))
     - 이 다항식을 사용한 선형 회귀를 **다항 회귀**라고 한다.
 
 - 그래프로 표현하기
+
     ```python
     print(lr.coef_, lr.intercept_)
     # 길이가 2인 리스트, 값
@@ -281,7 +307,9 @@ print(lr.score(test_input, test_target))
 
     plt.show()
     ```
+
 - 식 평가하기
+
     ```python
     print(lr.score(train_poly, train_target))
     print(lr.score(test_poly,test_target))
@@ -289,10 +317,11 @@ print(lr.score(test_input, test_target))
     #0.977
     #과소적합
     ```
+
 그럼 어떻게 이를 해결해야 하지????
 
-03-3 특성 공학과 규제
-==================
+# 03-3 특성 공학과 규제
+
 - 위에서 발생한 **과소 적합**문제를 해결해야 한다. 
 - 예상 Sol 
     1) 제곱보다 고차항을 넣는 방법
@@ -327,6 +356,7 @@ print(lr.score(test_input, test_target))
             - 주로 사용하는 파일은 CSV파일이다.
                 - CSV파일이란?
                     - 그림처럼 콤마로 나누어진 텍스트 파일이다.
+
                     ![alt text](image-10.png)
 
                     - 사용 함수
@@ -338,7 +368,9 @@ print(lr.score(test_input, test_target))
                             - csv -> dataframe
                         2) to_numpy()
                             - dataframe -> numpy array
+
                         ![alt text](<스크린샷 2024-08-01 223746.png>)
+
             ```python
             import pandas as pd
             df = pd.read_csv('주소')
@@ -348,6 +380,7 @@ print(lr.score(test_input, test_target))
             #[1,2,3],
             # [4,5,6]]
             ```
+
 ### 사이킷런의 변환기
 - 변환기(transformer) : 특성을 만들거나 전처리하기 위한 다양한 클래스
 - 추정기(estimation) : 사이킷런에서 모델 클래스를 아우르는 말
@@ -359,6 +392,7 @@ print(lr.score(test_input, test_target))
 #### PolynomialFeatures in transformer
 - PolynomialFeatures 클래스
     - 패키지 : sklearn.preprocessing
+
     ```python
     from sklearn.preprocessing import PolynomialFeatures
     poly = PolynomialFeatures()
@@ -367,6 +401,7 @@ print(lr.score(test_input, test_target))
     # [[1. 2. 3. 4. 6. 9.]]
     # 사이킷런의 일관된 api에선 두 단계로 나누어져 있기에 fit과 transforms를 같이 써야 한다.
     ```
+
     - 함수
         1)  fit()
             - 역할 : 새롭게 만들 특성 조합을 찾는다.
@@ -374,6 +409,7 @@ print(lr.score(test_input, test_target))
             - 역할 : 실제로 데이터를 변환한다.
         - 함수의 특징
             - 차이 : 입력 데이터를 변환하는데 타깃 데이터가 필요하지 않다.
+
     ```python
     poly = PolynomialFeatures(include_bias =False)
     poly.fit([[2,3]])
@@ -392,9 +428,11 @@ print(lr.score(test_input, test_target))
     poly.fit(test_input)
     test_poly=poly.transform(test_input)
     ```
+
 #### 다중 회귀 모델 훈련하기
 이 과정은 선형회귀 훈련과 같다.
 차이는 들어가는 데이터가 다중 변수 데이터인 점만이 다르다.
+
 ```python
 from sklearn.linear_model import LinearRegresstion
 lr = LinearRegression()
@@ -402,9 +440,11 @@ lr.fit(train_poly, test_poly)
 print(lr.score(train_poly, train_target))
 print(lr.score(test_poly, test_target))
 ```
+
 - 특성을 더 추가하려면 어떻게 해야 하니?
     - degree 매개변수를 사용해야 한다.
         - 5제곱까지 특성을 만들려면 degree =5 하기
+
     ```python
     poly = PolynomialFeatures(degree =5, include_bias=False)
     poly.fit(train_input)
@@ -414,6 +454,7 @@ print(lr.score(test_poly, test_target))
     lr.fit(train_poly, train_target)
     print(lr.score)
     ``` 
+
     - degree
     - include_bias
 
@@ -438,6 +479,7 @@ print(lr.score(test_poly, test_target))
                 - 방법 : 평균과 표준편차를 구하여 표준점수로 바꾸는 방법
                 - Code 
                     StandardScaler 클래스 이용
+
                     ```python
                     from sklearn.preprocessing import StandardScaler
                     ss= StandardScaler()
@@ -445,6 +487,7 @@ print(lr.score(test_poly, test_target))
                     train_scaled = ss.transform(train_poly)
                     test_scaled = ss.tranform(test_poly)
                     ```
+
     - 종류
         - ridge는 계수를 **제곱**한 값을 기준으로 규제를 적용한다.
         - lasso는 계수의 **절댓값**을 기준으로 규제를 적용한다.
@@ -455,11 +498,14 @@ print(lr.score(test_poly, test_target))
         - lasso는 그냥 ridge를 lasso로 바꾸면 된다.
         - how?
             - sklearn.linear_model 패키지 안에 있다.
+
             ```python
             from sklearn.linear_model import Ridge
             ridge = Ridge()
             ridge.fit(train_scaled,train_target)
             print(ridge.score(train_scaled, train_target))
+            ```
+
         - 모델 조절
             - alpha
                 - where?
@@ -472,11 +518,13 @@ print(lr.score(test_poly, test_target))
                         3) 더 과소적합하도록 유도한다.
                 - 하이퍼 파라미터, 모델 파라미터
                 - 최적의 alpha?
+
                     ```python
                     import matplotlib.  pyplot as plt
                     train_score =[]
                     test_score =[]
                     ```
+
                     ```python
                     # 리스트에 각각 알파에 대한 정확도를 넣고 있다.
                     alpha_list =[0.001,0.01,0.1,1,10,100]
@@ -486,33 +534,41 @@ print(lr.score(test_poly, test_target))
                         train_score.append(ridge.score(train_scaled,train_target))
                         test_score.append(ridge.score(test_scaled,test_target))
                     ```
+
                     ```python
                     #시각화하기
                     plt.plot(np.log10(alpha_list),train_score)
                     plt.plot(np.log10(alpha_list),test_score)
                     plt.show()
                     ```
+
                     ![alt text](image-13.png)
                     alpha가 0.1일때 가장 크게 정확도가 높게 나온다.
+
                     ```python
                     ridge = Ridge(alpha=0.1)
                     ridge.fit(train_scaled, train_target)
                     ```
+
     - lasso
         - how ?
             - 위에 이름만 lasso로 바꾸기
+
                 ```python
                 from sklearn.linear_model import Lasso
                 lasso= Lasso()
                 lasso.fit(train_scaled, train_target)
                 print(lasso.score(train_scaled, train_target))
                 ```
+
             - 최적의 alpha?
+
                 ```python
                 import matplotlib.  pyplot as plt
                 train_score =[]
                 test_score =[]
                 ```
+
                 ```python
                 alpha_list =[0.001,0.01,0.1,1,10,100]
                 for alpha in         alpha_list:
@@ -521,6 +577,7 @@ print(lr.score(test_poly, test_target))
                     train_score.append(lasso.score(train_scaled,train_target))
                     test_score.append(lasso.score(test_scaled,test_target))
                 ``` 
+                
                 - max_iter 
                     - 이유 : ConvergenceWarning은 라쏘 모델에서 최적의 계수를 찾기 위해 반복적인 계산을 수행하는데, 지정한 반복 횟수가 부족할 때 경고가 발생한다.
                 
