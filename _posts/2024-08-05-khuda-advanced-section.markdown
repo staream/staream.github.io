@@ -98,10 +98,10 @@ categories: KhuDa
 3. 이유 파악 : 자료를 수집하는 현장의 상황을 보아 상관관계의 이유를 파악한다.
 4. 변수 규제 or 선택: PCA(Principle Component Analysis)와 능형회귀분석(Ridge Regression)과 같은 추정 방법을 사용한다.
 
-#### 예제 코드
+## 예제 코드
 변수간의 다중공선성을 살펴보기 위해 공차, VIF값으로 판단해야 한다.
 
-##### 데이터 파악하기
+### 데이터 파악하기
 ```python
 import pandas as pd
 import numpy as np
@@ -126,7 +126,7 @@ plt.show()
 ```
 ![alt text](image-19.png)
 
-##### 데이터 상관성 파악하기
+### 데이터 상관성 파악하기
 ```python
 fig, ax = plt.subplots(figsize=(11,11))
 df_corr=dfX.corr()
@@ -157,7 +157,7 @@ plt.show()
 ```
 ![alt text](image-20.png)
 
-##### train_set
+### train_set
 ```python
 df_train, df_test = train_test_split(df, test_size=0.4, random_state=0)
 model1 = sm.OLS.from_formula("TOTEMP ~ GNPDEFL + POP + GNP + YEAR + ARMED + UNEMP",data=df_train)
@@ -168,7 +168,7 @@ print(result1.summary())
 ![alt text](image-21.png)
 회귀 모형 구축 시, R-squared = 0.998로 나온 걸 알 수 있다. 
 
-##### test_set
+### test_set
 test set에 대한 R-squared를 구하는 함수
 ```python
 def calc_r2(df_test, result):
@@ -191,8 +191,8 @@ test1
 ![alt text](image-22.png)
 테스트의 결과로 나온 R-squared에는 "0.49", "0.7" 낮게 나온 것이 있기에 **과적합**되었음을 알 수 있습니다.
 
-##### 다중 공선성 진단법
-###### 분산팽창계수(VIF, Variance Inflation Factor)
+### 다중 공선성 진단법
+#### 분산팽창계수(VIF, Variance Inflation Factor)
 ```python
 vif = pd.DataFrame()
 vif["VIF Factor"] = [variance_inflation_factor(dfX.values, i) for i in range(dfX.shape[1])]
@@ -202,7 +202,7 @@ vif
 ```
 ![alt text](image-23.png)
 
-##### 변수제거
+#### 변수제거
 ```python
 model2 = sm.OLS.from_formula("TOTEMP ~ scale(GNP) + scale(ARMED) + scale(UNEMP)", data=df_train)
 result2 = model2.fit()
@@ -211,7 +211,7 @@ print(result2.summary())
 ```
 ![alt text](image-24.png)
 
-##### 테스트 결과
+#### 테스트 결과
 ```python
 test2 = []
 for i in range(10):
