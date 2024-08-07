@@ -152,7 +152,7 @@ title = 'CORRELATION MATRIX\n'
 plt.title(title, loc='left', fontsize=15)
 plt.show()
 ```
-![alt text](image-20.png)
+![alt text](image-28.png)
 
 ### train_set
 ```python
