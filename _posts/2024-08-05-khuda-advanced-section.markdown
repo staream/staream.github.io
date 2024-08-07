@@ -198,6 +198,9 @@ vif["features"] = dfX.columns
 vif
 
 ```
+
+![alt text](image-29.png)
+
 ![alt text](image-23.png)
 
 #### 변수제거
