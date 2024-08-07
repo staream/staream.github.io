@@ -196,7 +196,7 @@ vif = pd.DataFrame()
 vif["VIF Factor"] = [variance_inflation_factor(dfX.values, i) for i in range(dfX.shape[1])]
 vif["features"] = dfX.columns
 vif
-#variance_inflation_factor의 설명을 넣으면 좋을 듯
+
 ```
 ![alt text](image-23.png)
 
