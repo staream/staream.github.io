@@ -292,6 +292,7 @@ wine = pd.read_csv("http://bit.ly/wine-date')
 ```
 
 **class와 feature 열을 나누기**
+
 ```python
 data = wine[['alcohol', 'sugar','pH']].to_numpy()
 target = wine['class'].to_numpy()
@@ -437,6 +438,7 @@ print(gs.best_params_)
 #{'min_impurity_decrease' : 0.0001}
 
 #교차 검증의 평균 점수는 
+# 검증 세트의 평균 점수
 #cv_results_ 에 저장되어 ㅇㅆ다.
 print(gs.cv_results_['mean_test_score'])
 # 교차검증의 평균점수를 list화 하여 출력한다.
@@ -586,6 +588,8 @@ print(rf.feature_importances_)
 # 앞 절에서의 변수 중요도
 # [0.12 0.86 0.007]
 ```
+
+랜덤 포레스트가 특성의 일부를 랜덤하게 선택하여 결정 트리를 훈련하기 때문이다. 그 결과 하나의 특성에 과도하게 집중하지 않고 좀 더 많은 특성이 훈련에 기여할 기회를 얻는다.
 
 이는 과대한 집중을 피한다.
 

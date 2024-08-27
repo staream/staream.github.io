@@ -1,0 +1,221 @@
+---
+layout: post
+title: 	"5th-week ML"
+date: 	2024-08-26 15:52:17 +0900
+categories: KhuDa
+---
+
+# 06. 비지도 학습
+
+# 06-1. 군집알고리즘
+## 비지도 학습이란?
+
+타깃을 모르는 비지도 학습
+
+
+타깃이 없을 때 사용하는 머신러닝 알고리즘이 있다. 
+
+이를 비지도 학습(unsupervised learning)이라고 한다.
+
+
+## 비지도 학습 해보기
+
+### 사진 데이터 준비하기
+준비한 사진은 **흑백**
+
+이 사진 데이터는 넘파이 배열의 기본 저장 포맷인 **npy 파일**로 저장
+
+colab에서 아래 명령어로 실행 가능
+
+!wget https://bit.ly/fruits_300 -O fruits_300.npy
+
+용어 설명 
+
+! : colab에서 이후의 명령을 파이썬 코드가 아닌 **리눅스 셸(shell)** 명령으로 이해함.
+
+wget : 원격 주소에서 데이터를 다운로드하여 저장하는 기능
+
+-O : 저장할 파일 이름을 지정할 수 있다.
+
+이를 통해 file <fruits_300.npy> 가 만들어진다.
+
+```python
+#데이터 로드
+import numpy as np
+import matplotlib.pyplot as plt
+
+fruits = np.load('fruits_300.npy')
+
+#fruits의 크기
+print(fruits.shape)
+#(300, 100, 100)
+# 1st dim. 300 : 샘플의 개수
+# 2nd dim. 100 : 이미지 높이
+# 3rd dim. 100 : 이미지 너비
+
+# 첫번째 이미지의 첫번째 행을 출력하고자 할 때
+print(fruits[0,0,:])
+#이는 (1,100)의 크기인 넘파이 행렬이 완성한다.
+```
+
+그럼 이를 이미지로 어떻게 바꿈??
+
+맷플롭립의 imshow() 함수를 사용하면 넘파이 배열로 이미지를 쉽게 그릴 수 있다.
+
+흑백이므로 cmap 매개변수를 'gray'로 지정한다.
+
+```python
+plt.imshow(fruits[0],cmap='gray')
+plt.show()
+```
+
+보통의 사진은 물체가 짙고, 배경이 밝다.
+
+- 하지만 이 사진에선 물제가 밝은 이유는 넘파이 배열로 변환할 때 반전시킨 것이다. 
+    - 우리의 관심은 사과이기 때문이다.
+    - 컴퓨터가 255에 집중하는 의미는 곱과 덧셈이 가능하기 때문이다.
+
+반전을 하고 싶다면 cmap에서 'gray_r'을 해보자.
+```python
+fig, axs = plt.subplots(1,2)
+axs[0].imshow(fruits[100],cmap='gray_r')
+axs[1].imshow(fruits[200],cmap='gray_r')
+plt.show()
+```
+
+- subplots() : 여러개의 그래프를 배열처럼 쌓을 수 있다.
+    - 이 함수의 2개의 매개변수는 쌓을 행과 열을 지정합니다. 여기에서는 하나의 행과 2개의 열을 지정한다.
+- axs는 2개의 서브 그래프를 담고 있는 배열이다.
+
+### 사진 데이터 분석하기
+사진은 사과, 파인애플, 바나나로 구성되어 있다.
+
+각 사진의 평균을 내서 차이를 확인해보자.
+
+1) 이미지 변환
+    이미지를 변환하여 100x100을 펼쳐 10,000인 1차원 배열로 만든다.
+
+    how?
+    ```python
+    #1. slicing
+    #2. reshape를 통한 100*100을 10,000으로
+    apple = fruit[0:100].reshape(-1,100*100)
+    pineapple = fruits[100:200].reshape(-1,100*100)
+    banana = fruits[200:300].reshape(-1,100*100)
+    print(apple.shape)
+    #(100,10000)
+    #np.mean()
+    print(apple.mean(axis=1))
+    # 크기가 100인 배열이 나온다.
+    ```
+![alt text](image-56.png)
+
+- 이렇게 구한 픽셀 평균값을 히스토그램을 통해 분포를 알 수 있다.
+    - 히스토그램: 발생한 빈도를 그래프로 표시한 것. x축은 값의 구간, y축은 발생 빈도
+```python
+plt.hist(np.mean(apple,axis=1),alpha=0.8)
+plt.hist(np.mean(pineapple,axis=1),alpha=0.8)
+plt.hist(np.mean(banana,axis=1),alpha=0.8)
+#alpha는 1보다 작게 하여 투명도를 만든다.
+
+plt.legend(['apple','pineapple','banana'])
+plt.show()
+```
+1) hist(np.mean(),alpha)
+
+2) plt.legend : 어떤 과일의 히스토그램인지 범례를 만들어 본다.
+
+3) np.mean() : 평균을 구한다.
+
+![alt text](image-57.png)
+
+#### 다음 분석 방법
+픽셀의 평균값이 아닌 픽셀별 평균값을 찾아보자.
+```python
+#픽셀 10,000개에 대한 평균값을 막대 그래프로 그려 보겠습니다.
+fig, axs = plt.subplots(1,3,figsize=(20,5))
+axs[0].bar(range(10000), np.mean(apple,axis=0))
+axs[1].bar(range(10000), np.mean(pineapple, axis=0))
+axs[2].bar(range(10000), np.mean(pineapple, axis=0))
+plt.show()
+```
+![alt text](image-59.png)
+
+이 사진은 각 10,000개의 픽셀을 각각 평균하여 그래프로 해놓은 것이다.
+
+사과는 아래로 갈수록 값이 높아지고, 파인은 비교적 고르고, 바나나는 중앙의 픽셀이 높다.
+
+위는 수치상으로 비교한 것이고, 아래는 이미지로 출력한 것이다.
+
+```python
+apple_mean = np.mean(apple, axis=0).reshape(100,100)
+pineapple_mean = np.mean(pineapple, axis=0).reshape(100,100)
+banana_mean = np.mean(banana,axis=0).reshape(100,100)
+fig, axs = plt.subplots(1,3,figsize=(20,5))
+axs[0].imshow(apple_mean, cmap='gray_r')
+axs[1].imshow(pineapple_mean, cmap='gray_r')
+axs[2].imshow(banana_mean, cmap='gray_r')
+plt.show()
+```
+
+이런 이미지에 가까운 이미지를 골라낸다면 구분할 수 있지 않을까?
+
+#### 평균값에 가까운 사진 고르기
+방법은 샘플의 값에 평균값을 뺀 절댓값 오차를 사용해보자.
+
+1) 절댓값 구하기
+
+이용함수 : abs() 함수를 이용한다.
+
+np.abs(-1) >> return 1
+
+np.abs() == np.absolute()
+```python
+abs_diff = np.abs(fruits-apple_mean)
+abs_mean = np.mean(abs_diff, axis=(1,2))
+# _diff는 (300,100,100) 크기의 배열인데, 각 샘플에 대한 평균을 구하기
+# 위해 axis에서 2번째, 세번째 차원을 모두 지정했다.
+```
+2) 차이값 sort하기
+
+apple_mean과 오차가 가장 작은 샘플 100개를 고르는 셈이다.
+
+np.argsort() 함수는 작은 것에서 큰 순서대로 나열한 abs_mean 배열의 인덱스를 반환한다.
+
+```python
+apple_index = np.argsort(abs_mean)[:100]
+fig, axs = plt.subplots(10,10,figsize =(10,10))
+for i in range(10):
+    for j in range(10):
+        axs[i,j].imshow(fruits[apple_index[i*10 +j]], cmap='gray_r')
+        axs[i,j].axis('off')
+plt.show()
+# 평균에 가까운 100개의 사진을 가져왔다.
+# off는 좌표축을 그리지 않는다.
+```
+
+이렇게 비슷한 샘플끼리 그룹으로 모으는 작업을 군집(clustering)이라고 한다. 
+
+군집 알고리즘으로 만든 그룹을 클러스터(cluster)라고 한다.
+
+근데 답도 없는 상황에서 어떻게 할 수 있는 거??
+
+# 06-2 k-평균
+위는 답을 알수 있었다. 그런데 답을 모르는 경우는 어떻게 해야 하니?
+
+이런 경우는 k-means clustering algorithm으로 평균값을 찾는다.
+
+이 평균값은 클러스터의 중심에 위치하므로 클러스터 중심 또는 센트로이드라고 한다.
+
+k-means clustering algorithm
+
+cluster center
+
+centroid
+
+
+## k-means clustering algorithm 이란?
+
+```python
+
+```
